@@ -1,0 +1,38 @@
+.navbar {
+    background-color: var(--primaryColor);
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--app-container);
+}
+
+.home {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+div,
+a {
+    flex-grow: 1;
+    flex-basis: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: var(--app-container);
+}
+
+h1 {
+    color: var(--app-container);
+}
+
+a {
+    &:hover {
+        background-color: var(--link-color-hover);
+        color: var(--link-color-active);
+    }
+
+    &.active {
+        background-color: var(--primaryShade);
+        color: var(--link-color-active);
+    }
+}

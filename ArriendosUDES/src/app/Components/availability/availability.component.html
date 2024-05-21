@@ -1,0 +1,56 @@
+<div class="container">
+    <section class="search">
+        <select>
+            <option value="0">Tipo de busqueda</option>
+            <option value="1">Compra</option>
+            <option value="2">Arriendo</option>
+        </select>
+        <select>
+            <option value="0">Tipo de inmueble</option>
+            <option value="1">Apartamento</option>
+            <option value="2">Casa</option>
+            <option value="3">Apartaestudio</option>
+        </select>
+        <input type="text" placeholder="Ciudad o Departamento">
+        <button>Buscar</button>
+    </section>
+    <section class="availability">
+        <div class="filters">
+            <h3>Filtros</h3>
+            <div>
+                <h3>Precio</h3>
+                <input type="text" placeholder="min. precio">
+                <input type="text" placeholder="max. precio">
+            </div>
+            <div>
+                <h3>Habitaciones</h3>
+                <input type="number" placeholder="#">
+            </div>
+            <div>
+                <h3>Baños</h3>
+                <input type="number" placeholder="#">
+            </div>
+        </div>
+        <div class="result">
+            <div class="card">
+                <div>
+                    <img src="../../../assets/img/apartamento.jpg" alt="Property">
+                </div>
+                <div>
+                    <h2>Titulo de propiedad</h2>
+                    <h3>$Valor de propiedad</h3>
+                    <h5>Ciudad, Departamento</h5>
+                    <span># Habitaciones, # Baños, Tamaño</span>
+                    <div class="tags">
+                        <span class="badge">Lista de etiquetas</span>
+                    </div>
+                    <h6>Fecha de publicación</h6>
+                </div>
+                <div>
+                    <button>Solicitar</button>
+                    <button style="display: none;">ALGO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

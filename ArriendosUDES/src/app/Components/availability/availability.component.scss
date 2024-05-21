@@ -1,0 +1,61 @@
+.search {
+    width: 100%;
+    height: max-content;
+    background-color: var(--link-color-hover);
+    border-radius: 20px;
+    text-align: center;
+
+    input,
+    select {
+        max-width: 300px;
+    }
+}
+
+.availability {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    div {
+        flex-grow: 1;
+        flex-basis: 100;
+    }
+}
+
+.card {
+    border: 2px solid var(--main-color);
+    margin-top: 10px;
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--app-container);
+
+    div {
+        flex-grow: 1;
+        flex-basis: 100;
+    }
+
+    img {
+        height: 300px;
+        width: 300px;
+        border-radius: 20px;
+        margin: 10px;
+    }
+}
+
+.filters {
+    background-color: var(--app-container);
+    border: 2px solid var(--main-color);
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+    width: 5%;
+    height: min-content;
+
+    div {
+        input {
+            width: 45%;
+        }
+    }
+}
