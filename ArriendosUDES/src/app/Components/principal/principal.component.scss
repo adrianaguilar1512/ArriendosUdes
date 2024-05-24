@@ -18,3 +18,20 @@
         max-width: 300px;
     }
 }
+
+.regions {
+    display: grid;
+
+    .region {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        background-color: var(--app-container);
+        margin: 2px;
+        padding: 2px;
+        border: 1px solid var(--main-color);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+}

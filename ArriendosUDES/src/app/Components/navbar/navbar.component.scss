@@ -1,8 +1,8 @@
 .navbar {
-    background-color: var(--primaryColor);
+    background-color: var(--app-container);
     display: flex;
     flex-wrap: wrap;
-    color: var(--app-container);
+    color: var(--main-color);
 }
 
 .home {
@@ -18,11 +18,11 @@ a {
     justify-content: center;
     align-items: center;
     height: 60px;
-    color: var(--app-container);
+    color: var(--main-color);
 }
 
 h1 {
-    color: var(--app-container);
+    color: var(--main-color);
 }
 
 a {

@@ -1,18 +1,24 @@
 <div class="container">
     <section class="search">
-        <select>
+        <select [(ngModel)]="searchType">
             <option value="0">Tipo de busqueda</option>
             <option value="1">Compra</option>
             <option value="2">Arriendo</option>
         </select>
-        <select>
+        <select [(ngModel)]="propertyType">
             <option value="0">Tipo de inmueble</option>
             <option value="1">Apartamento</option>
             <option value="2">Casa</option>
             <option value="3">Apartaestudio</option>
         </select>
-        <input type="text" placeholder="Ciudad o Departamento">
-        <button>Buscar</button>
+        <input id="region" type="text" placeholder="Ciudad o Departamento" [(ngModel)]="site"
+            (keyup)="setFilterRegions()">
+        <button (click)="getAvailability()">Buscar</button>
+        <div class="regions">
+            @for (item of filterRegions; track $index) {
+            <span class="region" (click)="setRegion(item.municipio)">{{item.municipio}} - {{item.departamento}}</span>
+            }
+        </div>
     </section>
     <section class="availability">
         <div class="filters">
@@ -32,25 +38,56 @@
             </div>
         </div>
         <div class="result">
+            @if(propertyList.length == 0){
+                <div class="noContent">
+                    <h3>No hay propiedades disponibles para los parámetros de búsqueda</h3>
+                </div>
+            }
+            @else {
+            @for (item of propertyList; track item.id) {
             <div class="card">
                 <div>
                     <img src="../../../assets/img/apartamento.jpg" alt="Property">
                 </div>
                 <div>
-                    <h2>Titulo de propiedad</h2>
-                    <h3>$Valor de propiedad</h3>
-                    <h5>Ciudad, Departamento</h5>
-                    <span># Habitaciones, # Baños, Tamaño</span>
-                    <div class="tags">
-                        <span class="badge">Lista de etiquetas</span>
-                    </div>
-                    <h6>Fecha de publicación</h6>
+                    <h2>{{item.name}}</h2>
+                    <h3>${{item.price}}</h3>
+                    <h5>{{item.city}} {{item.state}}</h5>
+                    <span># Habitaciones: {{item.roomCount}}, # Baños: {{item.bathroomCount}}</span>
                 </div>
                 <div>
-                    <button>Solicitar</button>
-                    <button style="display: none;">ALGO</button>
+                    <button (click)="request(item.id)">Solicitar</button>
                 </div>
             </div>
+            }
+            }
         </div>
     </section>
 </div>
+
+@if (openModal) {
+<div id="open-modal" class="modal-window">
+    <div id="opened-modal">
+        <a id="closeModalButton" (click)="openModal = false" title="Close" class="modal-close">x</a>
+        <h2>Solicitar información</h2>
+        <section>
+            <form [formGroup]="formGroup" (ngSubmit)="addRequest()">
+                <input type="text" placeholder="Correo" formControlName="applicantEmail">
+                <input type="text" placeholder="Teléfono" formControlName="applicantPhone">
+                <button type="submit" [disabled]="formGroup.invalid">Agregar</button>
+            </form>
+        </section>
+    </div>
+</div>
+}
+
+@if(openModalRequested){
+<div id="open-modal" class="modal-window">
+    <div id="opened-modal">
+        <a id="closeModalButton" (click)="openModalRequested = false" title="Close" class="modal-close">x</a>
+        <h2>Confirmación</h2>
+        <h3>Su solicitud ha sido enviada, se pondrán en contacto lo más pronto posible.</h3>
+        <button (click)="openModalRequested = false">Aceptar</button>
+    </div>
+</div>
+}

@@ -1,0 +1,56 @@
+<div class="container">
+    <h2>Lista de propiedades disponibles</h2>
+    <section>
+        <button (click)="openModal = true">Agregar nueva propiedad</button>
+        @for (item of propertyList; track item.id) {
+        <div class="card">
+            <div>
+                <img src="../../../assets/img/apartamento.jpg" alt="Property">
+            </div>
+            <div>
+                <h2>{{item.name}}</h2>
+                <h3>${{item.price}}</h3>
+                <h5>{{item.city}} {{item.state}}</h5>
+                <span># Habitaciones: {{item.roomCount}}, # Baños: {{item.bathroomCount}}</span>
+            </div>
+            <div>
+                <button (click)="delete(item)">Eliminar</button>
+            </div>
+        </div>
+        }
+    </section>
+</div>
+
+@if (openModal) {
+<div id="open-modal" class="modal-window">
+    <div id="opened-modal">
+        <a id="closeModalButton" (click)="openModal = false" title="Close" class="modal-close">x</a>
+        <h2>Agregar nueva propiedad</h2>
+        <section>
+            <form [formGroup]="formGroup" (ngSubmit)="add()">
+                <input type="text" placeholder="Nombre" formControlName="name">
+                <input type="number" placeholder="#Precio" formControlName="price">
+                <input type="number" placeholder="#Cantidad de habitaciones" formControlName="roomCount">
+                <input type="number" placeholder="#Cantidad de baños" formControlName="bathroomCount">
+                <input id="region" type="text" placeholder="Ciudad" formControlName="city" (keyup)="setFilterRegions()">
+                <div class="regions">
+                    @for (item of filterRegions; track $index) {
+                    <span class="region" (click)="setRegion(item)">{{item.municipio}} - {{item.departamento}}</span>
+                    }
+                </div>
+                <input type="text" placeholder="Departamento" formControlName="state">
+                <select formControlName="propertyType">
+                    <option value="1">Apartamento</option>
+                    <option value="2">Casa</option>
+                    <option value="3">Apartaestudio</option>
+                </select>
+                <select formControlName="searchType">
+                    <option value="1">Compra</option>
+                    <option value="2">Arriendo</option>
+                </select>
+                <button type="submit" [disabled]="formGroup.invalid">Agregar</button>
+            </form>
+        </section>
+    </div>
+</div>
+}

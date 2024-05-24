@@ -1,18 +1,24 @@
 <div class="container">
     <section class="search">
         <h2>Compra o arrienda inmuebles</h2>
-        <select>
+        <select [(ngModel)]="searchType">
             <option value="0">Tipo de busqueda</option>
             <option value="1">Compra</option>
             <option value="2">Arriendo</option>
         </select>
-        <select>
+        <select [(ngModel)]="propertyType">
             <option value="0">Tipo de inmueble</option>
             <option value="1">Apartamento</option>
             <option value="2">Casa</option>
             <option value="3">Apartaestudio</option>
         </select>
-        <input type="text" placeholder="Ciudad o Departamento">
-        <button>Buscar</button>
+        <input id="region" type="text" placeholder="Ciudad o Departamento" [(ngModel)]="site"
+            (keyup)="setFilterRegions()">
+        <button (click)="getAvailability()">Buscar</button>
+        <div class="regions">
+            @for (item of filterRegions; track $index) {
+            <span class="region" (click)="setRegion(item.municipio)">{{item.municipio}} - {{item.departamento}}</span>
+            }
+        </div>
     </section>
 </div>
