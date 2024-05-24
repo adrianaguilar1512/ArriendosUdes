@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ArriendosUDES": {
+    "arriendosudes": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ArriendosUDES:build:production"
+              "buildTarget": "arriendosudes:build:production"
             },
             "development": {
-              "buildTarget": "ArriendosUDES:build:development"
+              "buildTarget": "arriendosudes:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ArriendosUDES:build"
+            "buildTarget": "arriendosudes:build"
           }
         },
         "test": {

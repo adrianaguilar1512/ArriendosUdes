@@ -1,0 +1,15 @@
+section {
+    display: grid;
+    place-items: center;
+}
+
+form {
+    width: 290px;
+    max-width: 400px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--main-color);
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}

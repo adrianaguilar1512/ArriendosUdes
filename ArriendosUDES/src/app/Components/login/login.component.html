@@ -1,1 +1,9 @@
-<p>login works!</p>
+<div class="container">
+    <section>
+        <form [formGroup]="formLogin" (ngSubmit)="login()">
+            <input type="text" placeholder="Usuario" formControlName="user">
+            <input type="password" placeholder="Contraseña" formControlName="password">
+            <button type="submit" [disabled]="formLogin.invalid">Ingresar</button>
+        </form>
+    </section>
+</div>
