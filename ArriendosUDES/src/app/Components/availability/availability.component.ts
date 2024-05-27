@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Property } from '../../Interfaces/property';
 import { RequestService } from '../../Services/request.service';
 import { Location } from '@angular/common';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-availability',
@@ -22,9 +23,12 @@ export class AvailabilityComponent {
   regions: Regions[] = [];
   filterRegions: Regions[] = [];
   propertyList: Property[];
+  filteredPropertyList: Property[];
   openModal = false;
   formGroup: FormGroup;
   openModalRequested = false;
+  max = 0;
+  min = 0;
 
   constructor(
     private _availabilityService: AvailabilityService,
@@ -86,7 +90,11 @@ export class AvailabilityComponent {
 
   getPropertyList() {
     this._availabilityService.getProperties(this.searchType, this.propertyType, this.site).subscribe({
-      next: (data) => this.propertyList = data,
+      next: (data) => {
+        this.propertyList = data;
+        this.filteredPropertyList = data;
+        this.filterValues();
+      },
       error: (ex) => window.alert(ex.message)
     });
   }
@@ -109,6 +117,79 @@ export class AvailabilityComponent {
     this.setFormRequest();
     this.openModal = false;
     this.openModalRequested = true;
+  }
+
+  filterValues() {
+
+    this.max = this.propertyList.reduce((prev, cur) =>
+      cur.price > prev.price ? cur : prev
+    ).price;
+
+    this.min = this.propertyList.reduce((prev, cur) =>
+      cur.price < prev.price ? cur : prev
+    ).price;
+
+    var lowerSlider: any = document.querySelector('#lower');
+    var upperSlider: any = document.querySelector('#upper');
+    var priceMax: any = document.querySelector('#price-max');
+    var priceMin: any = document.querySelector('#price-min');
+    // console.log(upperSlider)
+    // upperSlider.value = this.max;
+    // lowerSlider.value = this.min;
+    // priceMax.value = upperSlider.value;
+    // priceMin.value = lowerSlider.value;
+    // console.log(this.max)
+    var lowerVal = parseInt(lowerSlider.value);
+    var upperVal = parseInt(upperSlider.value);
+
+    upperSlider.oninput = function () {
+      lowerVal = parseInt(lowerSlider.value);
+      upperVal = parseInt(upperSlider.value);
+
+      if (upperVal < lowerVal + 4) {
+        lowerSlider.value = upperVal - 4;
+        if (lowerVal == lowerSlider.min) {
+          upperSlider.value = 4;
+        }
+      }
+      priceMax.value = this.value
+    };
+
+    lowerSlider.oninput = function () {
+      lowerVal = parseInt(lowerSlider.value);
+      upperVal = parseInt(upperSlider.value);
+      if (lowerVal > upperVal - 4) {
+        upperSlider.value = lowerVal + 4;
+        if (upperVal == upperSlider.max) {
+          lowerSlider.value = parseInt(upperSlider.max) - 4;
+        }
+      }
+      priceMin.value = this.value
+    };
+  }
+
+  applyFilters() {
+    var upper = document.getElementById('upper') as HTMLInputElement | null;
+    var lower = document.getElementById('lower') as HTMLInputElement | null;
+    const upperValue = upper?.value ?? '0';
+    const lowerValue = lower?.value ?? '0';
+    const rooms = document.getElementById('rooms') as HTMLInputElement | null;
+    var roomsValue = parseFloat(rooms?.value ?? '0');
+    const bathrooms = document.getElementById('bathrooms') as HTMLInputElement | null;
+    var bathroomsValue = parseFloat(bathrooms?.value ?? '0');
+
+    this.filteredPropertyList = this.propertyList.filter(x => x.price >= parseFloat(lowerValue) && x.price <= parseFloat(upperValue));
+
+    if (bathroomsValue)
+      this.filteredPropertyList = this.filteredPropertyList.filter(x => x.bathroomCount == bathroomsValue);
+    else
+      this.filteredPropertyList = this.filteredPropertyList;
+
+
+    if (roomsValue)
+      this.filteredPropertyList = this.filteredPropertyList.filter(x => x.roomCount == roomsValue);
+    else
+      this.filteredPropertyList = this.filteredPropertyList;
   }
 
 }

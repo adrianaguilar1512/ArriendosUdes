@@ -1,16 +1,16 @@
 <div class="container">
     <h2>Solicitudes realizadas</h2>
     @if(requestList.length == 0){
-        <div class="noContent">No hay solicitudes pendientes</div>
+    <div class="noContent">No hay solicitudes pendientes</div>
     }
     @else {
-        @for (item of requestList; track item.id) {
-            <div class="card">
-                <h3>ID: {{item.id}}</h3>
-                <h4>Correo: {{item.applicantEmail}}</h4>
-                <h4>Teléfono: {{item.applicantPhone}}</h4>
-                <h4>ID de la propiedad: {{item.idProperty}}</h4>
-            </div>
-        }
+    @for (item of requestList; track item.id) {
+    <div class="card">
+        <h3>ID: {{item.id}}</h3>
+        <h4>Correo: {{item.applicantEmail}}</h4>
+        <h4>Teléfono: {{item.applicantPhone}}</h4>
+        <h4>ID de la propiedad: {{item.idProperty}}</h4>
+    </div>
+    }
     }
 </div>

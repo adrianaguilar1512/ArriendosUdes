@@ -79,7 +79,17 @@ export class PropertiesComponent {
   }
 
   async add() {
-    await this._propertiesService.addProperty(this.formGroup.value);
+    var newProperty: Property = {
+      bathroomCount: this.formGroup.value.bathroomCount,
+      city: this.formGroup.value.city,
+      name: this.formGroup.value.name,
+      price: this.formGroup.value.price,
+      propertyType: parseInt(this.formGroup.value.propertyType),
+      roomCount: this.formGroup.value.roomCount,
+      searchType: parseInt(this.formGroup.value.searchType),
+      state: this.formGroup.value.state
+    }
+    await this._propertiesService.addProperty(newProperty);
     this.setFormGroup();
     this.openModal = false;
   }
