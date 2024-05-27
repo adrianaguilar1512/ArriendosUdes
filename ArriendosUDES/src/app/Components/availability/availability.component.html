@@ -23,28 +23,43 @@
     <section class="availability">
         <div class="filters">
             <h3>Filtros</h3>
-            <div>
-                <h3>Precio</h3>
-                <input type="text" placeholder="min. precio">
-                <input type="text" placeholder="max. precio">
+            <div class="priceFiltr">
+                <fieldset class="price-range-slider">
+                    <div class="price-wrap">
+                        <div class="price-wrap-1">
+                            <label for="price-min">$</label>
+                            <input disabled tabindex="-1" id="price-min" [value]="min">
+                        </div>
+                        <div class="price-wrap-2">
+                            <label for="price-max">$</label>
+                            <input disabled tabindex="-1" id="price-max" [value]="max">
+                        </div>
+                    </div>
+                    <div class="price-field">
+                        <input type="range" [min]="min" [max]="max" [value]="min" id="lower" (change)="applyFilters()">
+                        <input type="range" [min]="min" [max]="max" [value]="max" id="upper" (change)="applyFilters()">
+                    </div>
+
+                </fieldset>
             </div>
+
             <div>
                 <h3>Habitaciones</h3>
-                <input type="number" placeholder="#">
+                <input type="number" placeholder="#" id="rooms" (keyup)="applyFilters()">
             </div>
             <div>
                 <h3>Baños</h3>
-                <input type="number" placeholder="#">
+                <input type="number" placeholder="#" id="bathrooms" (keyup)="applyFilters()">
             </div>
         </div>
         <div class="result">
-            @if(propertyList.length == 0){
-                <div class="noContent">
-                    <h3>No hay propiedades disponibles para los parámetros de búsqueda</h3>
-                </div>
+            @if(filteredPropertyList && filteredPropertyList.length == 0){
+            <div class="noContent">
+                <h3>No hay propiedades disponibles para los parámetros de búsqueda</h3>
+            </div>
             }
             @else {
-            @for (item of propertyList; track item.id) {
+            @for (item of filteredPropertyList; track item.id) {
             <div class="card">
                 <div>
                     <img src="../../../assets/img/apartamento.jpg" alt="Property">
